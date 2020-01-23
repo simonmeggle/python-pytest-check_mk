@@ -13,9 +13,11 @@ def _get_check_name(request):
 
 @pytest.fixture
 def agents(request):
+    '''returns a checkMK agent instance'''
     return AgentDirectoryWrapper()
 
 
 @pytest.fixture
 def checks(request):
+    '''returns a checkMK check instance'''
     return create_check_file_wrapper(_get_check_name(request))
