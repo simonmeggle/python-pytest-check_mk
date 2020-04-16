@@ -33,14 +33,14 @@ special_agent_info                 = {}
 
 '''
 
-# E.g. host_extra_conf_merged is a WATO function which is only available when the 
-# check is run in MK's context. The same applies to the inventory rules etc. 
+# E.g. host_extra_conf_merged is a WATO function which is only available when the
+# check is run in MK's context. The same applies to the inventory rules etc.
 # We can monkeypatch these data in our test file only when they are present; monkey-
-# patch cannot create new data. 
+# patch cannot create new data.
 
-# The following code gets appended to the module. All runtime relevant data and 
+# The following code gets appended to the module. All runtime relevant data and
 # functions must be initialised here.
-# Example (file: test_foobar.py): 
+# Example (file: test_foobar.py):
 # mock_inventory_foobar_rules = [ ...(rules) ...]
 # monkeypatch.setattr(checks.module, "inventory_foobar_rules", mock_inventory_foobar_rules)
 
