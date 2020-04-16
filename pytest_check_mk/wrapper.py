@@ -28,8 +28,6 @@ class CheckFileWrapper(object):
     def __getitem__(self, key):
         return CheckWrapper(self, key)
 
-
-
 class CheckWrapper(object):
 
     def __init__(self, check_file, name):
@@ -61,9 +59,9 @@ class CheckWrapper(object):
         parse_function = self.check_info['parse_function']
         return parse_function(info)
 
-    ### inventory / check function ---------------------------------------------
+    # inventory / check function ---------------------------------------------
     # Normally, you can't feed the plugin output directly into a check, because
-    # the check expects the data as a list of lists + without the fist line (section). 
+    # the check expects the data as a list of lists + without the fist line (section).
     # This transformation does CheckMK for you.
     # Use this functions to test the inventory/check isolated from a monitoring core.
 
@@ -86,22 +84,21 @@ class CheckWrapper(object):
         result = check_function(item, params, info)
         return self._convert_check_result(result)
 
-    ### inventory_mk / check_mk function ---------------------------------------
+    # inventory_mk / check_mk function ---------------------------------------
     # "_mk" = Data are coming from MK
-    # Use this functions to test the inventory/check with exactly the same data 
+    # Use this functions to test the inventory/check with exactly the same data
     # format which CheckMK hands over to the check (=list of lists).
     # A parse_function is respected, if existing.
 
     def inventory_mk(self, mk_output):
-        '''Use this function to test the inventory with exactly the data which 
-        are handed over by the CheckMK system.''' 
+        '''Use this function to test the inventory with exactly the data which
+        are handed over by the CheckMK system.'''
         __tracebackhide__ = True
-        if "parse_function" in self.check_info: 
+        if "parse_function" in self.check_info:
             parse_function = self.check_info['parse_function']
             parsed = parse_function(mk_output)
-        else: 
-            parsed = mk_output    
-       
+        else:
+            parsed = mk_output 
         inventory_function = self.check_info['inventory_function']
         return inventory_function(parsed)
 
@@ -111,8 +108,7 @@ class CheckWrapper(object):
             parse_function = self.check_info['parse_function']
             parsed = parse_function(mk_output)
         else: 
-            parsed = mk_output  
-
+            parsed = mk_output
         check_function = self.check_info['check_function']
         result = check_function(item, params, parsed)
         return self._convert_check_result(result)
